@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="dependencies">
+      <UniqueIdentifier>{8CAD9F58-7810-2FFD-2196-67B30DD8FA7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core">
+      <UniqueIdentifier>{96DCD350-8201-23D1-AB4C-086197D021EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies">
+      <UniqueIdentifier>{0CC84A4B-788C-493B-41F2-7905AD75E570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies\GLEW">
+      <UniqueIdentifier>{AA6AC090-96D2-865E-FF3D-9B74EBC49D4A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies\GLEW\include">
+      <UniqueIdentifier>{1D9CBA2C-0930-B0D4-72F4-09895EA7EAC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies\GLEW\include\GL">
+      <UniqueIdentifier>{5FD41500-CBF0-07F1-94C8-745E00A471B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies\GLFW">
+      <UniqueIdentifier>{CB6AC090-B7D2-865E-203E-9B740CC59D4A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies\GLFW\include">
+      <UniqueIdentifier>{3E2DC530-2AC1-BAD8-9385-148D7F38F5CA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW">
+      <UniqueIdentifier>{3DDF2300-A9C6-0EF6-B2B4-10721E1BB2B8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\OpenGL-Core\src">
+      <UniqueIdentifier>{ADF5171A-99B0-07C6-4268-80102E025256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLEW\include\GL\eglew.h">
+      <Filter>dependencies\OpenGL-Core\dependencies\GLEW\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLEW\include\GL\glew.h">
+      <Filter>dependencies\OpenGL-Core\dependencies\GLEW\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLEW\include\GL\glxew.h">
+      <Filter>dependencies\OpenGL-Core\dependencies\GLEW\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLEW\include\GL\wglew.h">
+      <Filter>dependencies\OpenGL-Core\dependencies\GLEW\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW\glfw3.h">
+      <Filter>dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW\glfw3native.h">
+      <Filter>dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\src\core.h">
+      <Filter>dependencies\OpenGL-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\OpenGL-Core\src\debugGL.h">
+      <Filter>dependencies\OpenGL-Core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Strider2D.h" />
+    <ClInclude Include="src\Quad.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dependencies\OpenGL-Core\src\debugGL.cpp">
+      <Filter>dependencies\OpenGL-Core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Strider2D.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quad.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\TextureMap.txt" />
+  </ItemGroup>
+</Project>

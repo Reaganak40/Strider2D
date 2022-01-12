@@ -20,7 +20,6 @@
 // ==================================================================================================
 
 #include "core.h"
-
 // EXAMPLE OF A CORE::APPLICATION 
 
 int main(void)
@@ -31,7 +30,6 @@ int main(void)
     std::cout << "Application Name: " << app.getApplicationName() << std::endl;
     std::cout << "Window width:     " << app.getWindowWidth() << std::endl;
     std::cout << "Window height:    " << app.getWindowHeight() << std::endl;
-
 
     /* Loop until the user closes the window */
     while (app.isOpen())
