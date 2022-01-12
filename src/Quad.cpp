@@ -16,7 +16,7 @@ namespace Strider2D
 		SetTextureCoordinates();
 	}
 	
-	// Return X position of Quad, starting at bottom left corner
+	// Set X position of Quad, starting at bottom left corner
 	void Quad::SetX(float x)
 	{
 		m_vertices[0].Position[0] = x;
@@ -26,7 +26,7 @@ namespace Strider2D
 
 	}
 
-	// Return Y position of Quad, starting at bottom left corner
+	// Set Y position of Quad, starting at bottom left corner
 	void Quad::SetY(float y)
 	{
 		m_vertices[0].Position[1] = y;

@@ -97,6 +97,7 @@ namespace Core
 			/* Make the window's context current */
 			glfwMakeContextCurrent(m_window);
 		}
+	protected:
 
 		// OpenGL Context Variables
 		GLFWwindow* m_window;

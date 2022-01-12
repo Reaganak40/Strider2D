@@ -8,7 +8,8 @@
 //		Strider2D is a basic rendering API that draws 2D graphics in an OpenGL Context window.
 //  
 // ==================================================================================================
-#pragma once
+#ifndef S2D_H
+#define S2D_H 1
 
 #include <map>
 #include <string>
@@ -28,7 +29,10 @@ namespace Strider2D
 		float TextureID;
 	};
 
+	void CopyVector(const Vector src, Vector& dst);
 	void ResetTextureMap(void);
 	int GetTextureFromMap(std::string texture_loc);
 
 }
+
+#endif
