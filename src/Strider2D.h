@@ -17,22 +17,17 @@
 // Project Specific Includes
 #include <core.h> // Base OpenGL Library
 
-static int* global_int = new int;
+#include "window.h"					// OpenGL window context class
+#include "Shapes/Quad.h"			// Class that allows user to draw quads to the screen
+#include "Renderer/Renderer.h"		// Takes shapes and converts to data that OpenGL can read
+
 
 namespace Strider2D
 {
-	struct Vector
-	{
-		float Position[2];
-		float Color[4];
-		float TextureCoords[2];
-		float TextureID;
-	};
 
-	void CopyVector(const Vector src, Vector& dst);
 	void ResetTextureMap(void);
 	int GetTextureFromMap(std::string texture_loc);
-
+	
 }
 
 #endif

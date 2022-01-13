@@ -98,15 +98,23 @@
     <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\OpenGL-Core\src\core.h" />
     <ClInclude Include="dependencies\OpenGL-Core\src\debugGL.h" />
-    <ClInclude Include="src\Quad.h" />
-    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Renderer\Texture.h" />
+    <ClInclude Include="src\Shapes\Quad.h" />
+    <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Strider2D.h" />
+    <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Shapes\Vector.h" />
+    <ClInclude Include="src\window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\OpenGL-Core\src\debugGL.cpp" />
-    <ClCompile Include="src\Quad.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Shapes\Quad.cpp" />
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Shapes\Vector.cpp" />
     <ClCompile Include="src\Strider2D.cpp" />
+    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\window.cpp" />
     <ClCompile Include="tests\testRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

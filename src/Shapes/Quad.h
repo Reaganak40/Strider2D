@@ -1,7 +1,9 @@
 #ifndef S2D_QUAD 
 #define S2D_QUAD 1
 
-#include "Strider2D.h"
+#include "Vector.h"
+#include "../Renderer/Texture.h"
+
 #include <string>
 
 namespace Strider2D

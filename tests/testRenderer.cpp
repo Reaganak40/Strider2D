@@ -1,29 +1,26 @@
 #include <iostream>
 #include <fstream>
 
-#include "../src/Quad.h"
-#include "../src/Renderer.h"
+#include "../src/Strider2D.h"
 
 int main(void)
 {
-    Strider2D::Application app("Testing OpenGL Core", 600, 500);
 
-    Strider2D::Quad shape;
+    Strider2D::Window window("Testing OpenGL Core", 600, 500);
 
-    Strider2D::Renderer2D renderer;
-    renderer.Push<Strider2D::Quad>(shape);
+    Strider2D::Quad square(50, 50, 100, 100);
 
     /* Loop until the user closes the window */
-    while (app.isOpen())
+    while (window.isOpen())
     {
         /* GLClear Call */
-        app.clearWindow();
+        window.clearWindow();
 
         /* Draw Code Goes Here */
-        Strider2D::RunDrawQueue(app, renderer);
+        window.DrawQuad(square);
 
         /* GL Swap Buffers */
-        app.endFrame();
+        window.endFrame();
     }
 
     Strider2D::ResetTextureMap();
