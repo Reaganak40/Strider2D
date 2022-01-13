@@ -1,3 +1,6 @@
+#ifndef S2D_WINDOW_H
+#define S2D_WINDOW_H 1
+
 #include <core.h>
 
 #include "Shapes/Quad.h"
@@ -15,3 +18,5 @@ namespace Strider2D
 		void DrawQuad(Quad quad);
 	};
 }
+
+#endif

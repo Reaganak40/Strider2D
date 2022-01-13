@@ -3,6 +3,6 @@
 
 void Strider2D::Window::DrawQuad(Quad quad)
 {
-	std::cout << "Hello\n";
+	
 }
 

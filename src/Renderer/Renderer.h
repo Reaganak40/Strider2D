@@ -23,13 +23,13 @@ namespace Strider2D
 		ShapeBuffer* InitVectorBuffer(Vector* vertices, int count);
 
 		template<typename T>
-		ShapeBuffer* ConvertShapeToBuffer(T& shape)
+		inline ShapeBuffer* ConvertShapeToBuffer(T& shape)
 		{
 			static_assert(false);
 		}
 
 		template<>
-		ShapeBuffer* ConvertShapeToBuffer<Quad>(Quad& shape)
+		inline ShapeBuffer* ConvertShapeToBuffer<Quad>(Quad& shape)
 		{
 			return InitVectorBuffer(shape.GetVertices(), 4); // 4 is number of vertices
 		}
