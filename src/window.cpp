@@ -8,6 +8,11 @@ namespace Strider2D
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 		glm::vec3 translation(0, 0, 0);
 
+		int* samplers = nullptr;
+		int sampler_size = 0;
+		std::string texture_loc;
+		Renderer::Texture* texture = nullptr;
+
 		// Create a Vertex Array
 		Renderer::VertexArray vao;
 		
@@ -15,6 +20,19 @@ namespace Strider2D
 		Renderer::ShapeBuffer* sb;
 		sb = Renderer::ConvertShapeToBuffer<Quad>(quad);
 		Renderer::VertexBuffer vb(sb->b_attributes, sb->b_num_attributes * sizeof(float));
+
+		// Check for textures
+		samplers = GetSamplers(&sampler_size);
+		if (sb->b_attributes[8] != 0) //8th index is a TextureID
+		{
+			texture_loc = GetTextureFromMap((int)sb->b_attributes[8]);
+
+			
+		}
+		else
+		{
+			texture_loc = "NoTexture";
+		}
 
 		// Create a Vertex Buffer Layout
 		Renderer::VertexBufferLayout layout;
@@ -45,10 +63,16 @@ namespace Strider2D
 			glm::mat4 mvp = proj * view * model;
 			shader.Bind();
 
-			//shader.SetUniform1iv("u_Textures", m_samplers, m_num_objects + 1);
+			shader.SetUniform1iv("u_Textures", samplers, sampler_size);
 			shader.SetUniformMat4f("u_MVP", mvp);
 
+			if (texture_loc != "NoTexture")
+			{
+				texture = new Renderer::Texture(texture_loc);
+				GLCall(glBindTextureUnit((int)sb->b_attributes[8], texture->GetRendererID()));
+			}
 			renderer.draw(vao, ib, shader);
+			delete texture;
 		}
 
 

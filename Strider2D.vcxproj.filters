@@ -636,6 +636,7 @@
     <ClInclude Include="dependencies\glm\glm\vec4.hpp" />
     <ClInclude Include="dependencies\glm\glm\vector_relational.hpp" />
     <ClInclude Include="tests\Tests.h" />
+    <ClInclude Include="dependencies\stb_image\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\OpenGL-Core\src\debugGL.cpp">
@@ -657,6 +658,8 @@
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="dependencies\glm\glm\detail\glm.cpp" />
     <ClCompile Include="tests\Tests.cpp" />
+    <ClCompile Include="tests\TestQuadTexture.cpp" />
+    <ClCompile Include="dependencies\stb_image\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\TextureMap.txt" />

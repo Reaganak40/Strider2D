@@ -58,7 +58,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>dependencies\glm;dependencies\OpenGL-Core\dependencies\GLEW\include;dependencies\OpenGL-Core\dependencies\GLFW\include;dependencies\OpenGL-Core\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dependencies\stb_image;dependencies\glm;dependencies\OpenGL-Core\dependencies\GLEW\include;dependencies\OpenGL-Core\dependencies\GLFW\include;dependencies\OpenGL-Core\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
     </ClCompile>
@@ -74,7 +74,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>dependencies\glm;dependencies\OpenGL-Core\dependencies\GLEW\include;dependencies\OpenGL-Core\dependencies\GLFW\include;dependencies\OpenGL-Core\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dependencies\stb_image;dependencies\glm;dependencies\OpenGL-Core\dependencies\GLEW\include;dependencies\OpenGL-Core\dependencies\GLFW\include;dependencies\OpenGL-Core\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -662,6 +662,7 @@
     <ClInclude Include="dependencies\OpenGL-Core\dependencies\GLFW\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\OpenGL-Core\src\core.h" />
     <ClInclude Include="dependencies\OpenGL-Core\src\debugGL.h" />
+    <ClInclude Include="dependencies\stb_image\stb_image\stb_image.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
@@ -678,6 +679,7 @@
   <ItemGroup>
     <ClCompile Include="dependencies\glm\glm\detail\glm.cpp" />
     <ClCompile Include="dependencies\OpenGL-Core\src\debugGL.cpp" />
+    <ClCompile Include="dependencies\stb_image\stb_image\stb_image.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
@@ -690,6 +692,7 @@
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\window.cpp" />
     <ClCompile Include="tests\TestDrawQuad.cpp" />
+    <ClCompile Include="tests\TestQuadTexture.cpp" />
     <ClCompile Include="tests\Tests.cpp" />
   </ItemGroup>
   <ItemGroup>

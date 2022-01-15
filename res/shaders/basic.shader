@@ -35,18 +35,19 @@ uniform sampler2D u_Textures[32];
 void main()
 {
 
-	//int index = int(v_TexIndex);
+	int index = int(v_TexIndex);
 
-	//if (index == 0)
-	//{
-	//	color = v_Color; // shape is shaded by color
-	//}
-	//else {
-	//	vec4 texColor = texture(u_Textures[index], v_TexCoord);
-	//	color = texColor;  // shape is shaded by texture
+	if (index == 0)
+	{
+		color = v_Color; // shape is shaded by color
 
-	//}
+	}
+	else {
+		vec4 texColor = texture(u_Textures[index], v_TexCoord);
+		color = texColor;  // shape is shaded by texture
 
-	color = v_Color; // shape is shaded by color
+	}
+
+	//color = v_Color; // shape is shaded by color
 	//color = vec4(1.0);
 };

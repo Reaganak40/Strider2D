@@ -12,6 +12,9 @@ int TestDrawQuad(void)
     square.SetX(window.getWindowWidth() / (float)2 - square.GetWidth()/2);
     square.SetY(window.getWindowHeight() / (float)2 - square.GetHeight() / 2);
 
+    Strider2D::Quad square2(50, 50, 10, 10);
+    square2.SetColor(0.4f, 0.1f, 0.0f, 1.0f);
+
     /*float gb_val = 0.9f;
     float d_val = 0.02f;
 
@@ -26,6 +29,7 @@ int TestDrawQuad(void)
 
         /* Draw Code Goes Here */
         window.DrawQuad(square);
+        window.DrawQuad(square2);
 
         /*
         // Change color values
