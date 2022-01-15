@@ -3,6 +3,14 @@
 
 #include "../Shapes/Quad.h"
 
+#include "VertexBuffer.h" // a dependency for OpenGL rendering
+#include "VertexArray.h"  // a dependency for OpenGL rendering
+#include "IndexBuffer.h"  // a dependency for OpenGL rendering
+#include "Shader.h"		  // a dependency for OpenGL rendering
+
+#include "glm/gtc/matrix_transform.hpp"
+
+
 #include <deque>
 #define S2D_PUSH_STATIC 0
 #define S2D_PUSH_DYNAMIC 1
@@ -33,6 +41,16 @@ namespace Strider2D
 		{
 			return InitVectorBuffer(shape.GetVertices(), 4); // 4 is number of vertices
 		}
+		
+		class Renderer2D
+		{
+		public:
+			// Calls OpenGL clear buffer bit
+			void clear();
+
+			// Takes the rendering utlities, combinining them to draw data to the screen
+			void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+		};
 
 	}
 	//class Renderer2D

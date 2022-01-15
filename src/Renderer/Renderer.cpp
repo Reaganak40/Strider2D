@@ -1,5 +1,40 @@
 #include "Renderer.h"
 
+namespace Strider2D 
+{
+	namespace Renderer
+	{
+		ShapeBuffer* InitVectorBuffer(Vector* vertices, int count)
+		{
+			int buffer_size = count * S2D_VECTOR_FLOAT_COUNT;
+			float* attributes = new float[buffer_size];
+			
+			// Add the vector data to the buffer
+			for (int current_vector = 0; current_vector < count; current_vector++)
+				for (int current_attribute = 0; current_attribute < S2D_VECTOR_FLOAT_COUNT; current_attribute++)
+					attributes[(current_vector * S2D_VECTOR_FLOAT_COUNT) + current_attribute] = *(((float*)(&vertices[current_vector])) + current_attribute);
+			ShapeBuffer* n_sb = new ShapeBuffer;
+
+			n_sb->b_attributes = attributes;
+			n_sb->b_num_attributes = buffer_size;
+
+			return n_sb;
+		}
+
+		void Renderer2D::clear()
+		{
+			GLCall(glClear(GL_COLOR_BUFFER_BIT));
+		}
+		void Renderer2D::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
+		{
+			shader.Bind();
+			va.Bind();
+			ib.Bind();
+			GLCall(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
+		}
+	}
+}
+
 namespace Strider2D
 {
 	//void RunDrawQueue(Application& app, Renderer2D renderer)
@@ -64,27 +99,5 @@ namespace Strider2D
 	//}
 
 	
-}
-namespace Strider2D 
-{
-	namespace Renderer
-	{
-		ShapeBuffer* InitVectorBuffer(Vector* vertices, int count)
-		{
-			int buffer_size = count * S2D_VECTOR_FLOAT_COUNT;
-			float* attributes = new float[buffer_size];
-			
-			// Add the vector data to the buffer
-			for (int current_vector = 0; current_vector < count; current_vector++)
-				for (int current_attribute = 0; current_attribute < S2D_VECTOR_FLOAT_COUNT; current_attribute++)
-					attributes[(current_vector * S2D_VECTOR_FLOAT_COUNT) + current_attribute] = *(float*)((&vertices[current_vector]) + current_attribute);
-			ShapeBuffer* n_sb = new ShapeBuffer;
-
-			n_sb->b_attributes = attributes;
-			n_sb->b_num_attributes = buffer_size;
-
-			return n_sb;
-		}
-	}
 }
 

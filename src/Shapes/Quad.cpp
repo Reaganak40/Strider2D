@@ -15,6 +15,24 @@ namespace Strider2D
 		SetTexture("NoTexture"); // No default texture (textureID = 0)
 		SetTextureCoordinates();
 	}
+
+	void Quad::SetWidth(float width)
+	{
+		m_width = width;
+
+		// this wizardry will reset the vertices with the width
+		float x = GetX();
+		SetX(x);
+	}
+
+	void Quad::SetHeight(float height)
+	{
+		m_height = height;
+
+		// this wizardry will reset the vertices with the height
+		float y = GetY();
+		SetX(y);
+	}
 	
 	// Set X position of Quad, starting at bottom left corner
 	void Quad::SetX(float x)

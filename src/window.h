@@ -3,6 +3,7 @@
 
 #include <core.h>
 
+#include "Renderer/Renderer.h"
 #include "Shapes/Quad.h"
 
 namespace Strider2D
@@ -12,7 +13,7 @@ namespace Strider2D
 	public:
 		// Call Core::Application Constructor
 		Window(const std::string app_name = "Application", int window_width = 960, int window_height = 540)
-			: Core::Application(app_name, window_width, window_height) {}
+			: Core::Application(app_name, window_width, window_height) { GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f)); /* Make Background Dark gray*/ }
 
 		// Runs a OpenGL draw call for a Quad object
 		void DrawQuad(Quad quad);

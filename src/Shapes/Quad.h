@@ -20,6 +20,12 @@ namespace Strider2D
 	public:
 		Quad(float width = 50, float height = 50, float x = 0, float y = 0);
 		
+		// Change the x-length of the quad
+		void SetWidth(float width);
+
+		// Change the y-length of the quad
+		void SetHeight(float height);
+
 		// Set X position of Quad, starting at bottom left corner
 		void SetX(float x);
 
