@@ -1,9 +1,6 @@
-#include <iostream>
-#include <fstream>
+#include "Tests.h"
 
-#include "../src/Strider2D.h"
-
-int main(void)
+int TestDrawQuad(void) 
 {
 
     Strider2D::Window window("TestDrawQuad", 600, 500);
