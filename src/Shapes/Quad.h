@@ -8,8 +8,8 @@
 #include <math.h>
 
 #define S2D_PI 3.14159265
-#define S2D_POINT_ROTATION 0	//rotate on vertex 0
-#define S2D_ORIGIN_ROTATION 1   // rotate on the center point of shape
+#define S2D_VERTEX_ROTATION 0	//rotate on vertex 0
+#define S2D_MIDPOINT_ROTATION 1   // rotate on the center point of shape
 
 
 namespace Strider2D

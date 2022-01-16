@@ -4,7 +4,7 @@ namespace Strider2D
 {
 	Quad::Quad(float width, float height, float x, float y)
 	{
-		m_rotation_rule = S2D_POINT_ROTATION; //rotate on vertex 0
+		m_rotation_rule = S2D_VERTEX_ROTATION; //rotate on vertex 0
 		m_current_rotation = 0.0f;
 
 		m_width = width;
@@ -16,9 +16,9 @@ namespace Strider2D
 		m_vertices[3].Position[0] = x;
 		
 		m_vertices[0].Position[1] = y;
-		m_vertices[1].Position[1] = y + height;
+		m_vertices[1].Position[1] = y;
 		m_vertices[2].Position[1] = y + height;
-		m_vertices[3].Position[1] = y;
+		m_vertices[3].Position[1] = y + height;
 
 		SetColor(0.0f, 0.0f, 0.0f, 1.0f); // Pre-set all new quads to black
 
@@ -28,15 +28,61 @@ namespace Strider2D
 
 	void Quad::SetWidth(float width)
 	{
+		if (width < 0.01f)
+			width = 0.01f;
+
 		m_width = width;
 		
 		// this wizardry will reset the vertices with the height
-		Rotate(0);
+		if(m_rotation_rule = S2D_VERTEX_ROTATION)
+			Rotate(0);
+		else
+		{
+			int i = 0;
+			int g = 1;
+
+			REASSIGN_POSITIONS:
+			{
+				float dy = m_vertices[g].Position[1] - m_vertices[i].Position[1];
+				float dx = m_vertices[g].Position[0] - m_vertices[i].Position[0];
+
+				float hyp = (float)sqrt(pow(dx, 2) + pow(dy, 2));
+				float midpoint = hyp / 2;
+				float theta = atan(abs(dy) / abs(dx));
+
+				//std::cout << theta << std::endl;
+
+				float midx = midpoint * cos(theta);
+				float midy = midpoint * sin(theta);
+			
+				float f = m_width / 2;
+				float xx = f * cos(theta);
+				float yy = f * sin(theta);
+
+
+				m_vertices[i].Position[0] = m_vertices[i].Position[0] + midx - xx;
+				m_vertices[i].Position[1] = m_vertices[i].Position[1] + midy - yy;
+
+				m_vertices[g].Position[0] = m_vertices[g].Position[0] - midx + xx;
+				m_vertices[g].Position[1] = m_vertices[g].Position[1] - midy + yy;
+
+				if (i == 0)
+				{
+					i = 3;
+					g = 2;
+					goto REASSIGN_POSITIONS;
+				}
+			}
+
+		}
 
 	}
 
 	void Quad::SetHeight(float height)
 	{
+		if (height < 0.01f)
+			height = 0.01f;
+
 		m_height = height;
 		
 		// this wizardry will reset the vertices with the height
@@ -97,7 +143,7 @@ namespace Strider2D
 
 	void Quad::SetRotationRule(int rotation_rule)
 	{
-		if ((rotation_rule == S2D_ORIGIN_ROTATION) || (rotation_rule == S2D_POINT_ROTATION))
+		if ((rotation_rule == S2D_VERTEX_ROTATION) || (rotation_rule == S2D_MIDPOINT_ROTATION))
 			m_rotation_rule = rotation_rule;
 		else
 			ASSERT(false);
@@ -105,26 +151,73 @@ namespace Strider2D
 
 	void Quad::Rotate(float d_degrees)
 	{
-		if (m_rotation_rule == S2D_POINT_ROTATION)
-		{
-			float new_rotation = m_current_rotation + d_degrees;
-			new_rotation = fmod(new_rotation, 360); //keep rotation relative
 
-			double rad_rotation = new_rotation * (S2D_PI / 180);
-			double vec2_dr = 45 * (S2D_PI / 180);
+		
+		float new_rotation = m_current_rotation + d_degrees;
+		new_rotation = (float)fmod((double)new_rotation, 360); //keep rotation relative
+		double rad_rotation = new_rotation * (S2D_PI / 180);
+		m_current_rotation = new_rotation;
+		
+		if (m_rotation_rule == S2D_VERTEX_ROTATION)
+		{
+
+
+			double vec2_dr = atan(m_height / m_width);
 			double vec3_dr = 90 * (S2D_PI / 180);
 
-			m_vertices[1].Position[0] = m_vertices[0].Position[0] + (cos(rad_rotation) * m_width);
-			m_vertices[1].Position[1] = m_vertices[0].Position[1] + (sin(rad_rotation) * m_height);
+			m_vertices[1].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation) * m_width);
+			m_vertices[1].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation) * m_width);
 
-			float hyp = sqrt(pow(m_width, 2) + pow(m_height, 2));
-			m_vertices[2].Position[0] = m_vertices[0].Position[0] + (cos(rad_rotation + vec2_dr) * hyp);
-			m_vertices[2].Position[1] = m_vertices[0].Position[1] + (sin(rad_rotation + vec2_dr) * hyp);
+			double hyp = sqrt(pow(m_width, 2) + pow(m_height, 2));
+			m_vertices[2].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation + vec2_dr) * hyp);
+			m_vertices[2].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation + vec2_dr) * hyp);
 
-			m_vertices[3].Position[0] = m_vertices[0].Position[0] + (cos(rad_rotation + vec3_dr) * m_width);
-			m_vertices[3].Position[1] = m_vertices[0].Position[1] + (sin(rad_rotation + vec3_dr) * m_height);
+			m_vertices[3].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation + vec3_dr) * m_height);
+			m_vertices[3].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation + vec3_dr) * m_height);
 
-			m_current_rotation = new_rotation;
+		}
+		else if (m_rotation_rule == S2D_MIDPOINT_ROTATION)
+		{
+
+			double rel_rotation = d_degrees * (S2D_PI / 180);
+			
+			// 1. Find the midpoint
+			// find smallest x-value
+			float smallest_x = m_vertices[0].Position[0];
+			for (int i = 1; i < 4; i++)
+				if (m_vertices[i].Position[0] < smallest_x)
+					smallest_x = m_vertices[i].Position[0];
+			// find smallest y-value
+			float smallest_y = m_vertices[0].Position[1];
+			for (int i = 1; i < 4; i++)
+				if (m_vertices[i].Position[1] < smallest_y)
+					smallest_y = m_vertices[i].Position[1];
+
+			// find largest x-value
+			float largest_x = m_vertices[0].Position[0];
+			for (int i = 1; i < 4; i++)
+				if (m_vertices[i].Position[0] > largest_x)
+					largest_x = m_vertices[i].Position[0];
+
+			// find largest y-value
+			float largest_y = m_vertices[0].Position[1];
+			for (int i = 1; i < 4; i++)
+				if (m_vertices[i].Position[1] > largest_y)
+					largest_y = m_vertices[i].Position[1];
+
+			float midpoint_x = (smallest_x + largest_x) / 2;
+			float midpoint_y = (smallest_y + largest_y) / 2;
+
+
+			for (int i = 0; i < 4; i++)
+			{
+				float last_x = m_vertices[i].Position[0] - midpoint_x;
+				float last_y = m_vertices[i].Position[1] - midpoint_y;
+
+				m_vertices[i].Position[0] = (last_x * (float)cos(rel_rotation)) - (last_y * (float)sin(rel_rotation)) + midpoint_x;
+				m_vertices[i].Position[1] = (last_y * (float)cos(rel_rotation)) + (last_x * (float)sin(rel_rotation)) + midpoint_y;
+			}
+
 		}
 	}
 
