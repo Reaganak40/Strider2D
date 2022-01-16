@@ -10,6 +10,7 @@ namespace Strider2D
 		m_width = width;
 		m_height = height;
 
+		// Position must be done manually because functions depend on initialized positions
 		m_vertices[0].Position[0] = x;
 		m_vertices[1].Position[0] = x + width;
 		m_vertices[2].Position[0] = x + width;
@@ -86,7 +87,47 @@ namespace Strider2D
 		m_height = height;
 		
 		// this wizardry will reset the vertices with the height
-		Rotate(0);
+		if (m_rotation_rule = S2D_VERTEX_ROTATION)
+			Rotate(0);
+		else
+		{
+			int i = 0;
+			int g = 3;
+
+		REASSIGN_POSITIONS:
+			{
+				float dy = m_vertices[g].Position[1] - m_vertices[i].Position[1];
+				float dx = m_vertices[g].Position[0] - m_vertices[i].Position[0];
+
+				float hyp = (float)sqrt(pow(dx, 2) + pow(dy, 2));
+				float midpoint = hyp / 2;
+				float theta = atan(abs(dy) / abs(dx));
+
+				//std::cout << theta << std::endl;
+
+				float midx = midpoint * cos(theta);
+				float midy = midpoint * sin(theta);
+
+				float f = m_height / 2;
+				float xx = f * cos(theta);
+				float yy = f * sin(theta);
+
+
+				m_vertices[i].Position[0] = m_vertices[i].Position[0] + midx - xx;
+				m_vertices[i].Position[1] = m_vertices[i].Position[1] + midy - yy;
+
+				m_vertices[g].Position[0] = m_vertices[g].Position[0] - midx + xx;
+				m_vertices[g].Position[1] = m_vertices[g].Position[1] - midy + yy;
+
+				if (i == 0)
+				{
+					i = 1;
+					g = 2;
+					goto REASSIGN_POSITIONS;
+				}
+			}
+
+		}
 
 	}
 	
@@ -149,12 +190,23 @@ namespace Strider2D
 			ASSERT(false);
 	}
 
+	void Quad::SetRotation(float rotation_degrees)
+	{
+		// Find the current difference and rotate to it
+		float d_degrees = 360 - m_current_rotation + rotation_degrees;
+		Rotate(d_degrees);
+	}
+
 	void Quad::Rotate(float d_degrees)
 	{
 
 		
 		float new_rotation = m_current_rotation + d_degrees;
 		new_rotation = (float)fmod((double)new_rotation, 360); //keep rotation relative
+		
+		if (new_rotation < 0)
+			new_rotation += 360;
+
 		double rad_rotation = new_rotation * (S2D_PI / 180);
 		m_current_rotation = new_rotation;
 		
@@ -219,6 +271,15 @@ namespace Strider2D
 			}
 
 		}
+	}
+
+	void Quad::Translate(float dx, float dy)
+	{
+		if (dx)
+			SetX(GetX() + dx);
+
+		if (dy)
+			SetY(GetY() + dy);
 	}
 
 	std::string Quad::c_str()

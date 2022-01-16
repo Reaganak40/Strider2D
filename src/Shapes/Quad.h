@@ -50,7 +50,17 @@ namespace Strider2D
 		// Determines the center point where the shape rotates
 		void SetRotationRule(int rotation_rule);
 
+		// Get the current rotation of the quad in degrees
+		float GetRotation(void) { return m_current_rotation; }
+
+		// Set the rotation of the quad to a degree
+		void SetRotation(float rotation_degrees);
+
+		// Rotate the quad by d_degrees
 		void Rotate(float d_degrees);
+
+		// Move the object from its current position by the specified difference
+		void Translate(float dx = 0, float dy = 0);
 
 		// Get length of bottom left vertex to bottom right vertex
 		inline float GetWidth()	 { return m_width;  }
