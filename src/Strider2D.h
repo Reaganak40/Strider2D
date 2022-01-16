@@ -21,10 +21,8 @@
 #include "Shapes/Quad.h"			// Class that allows user to draw quads to the screen
 #include "Renderer/Renderer.h"		// Takes shapes and converts to data that OpenGL can use to draw graphics
 
-
 namespace Strider2D
 {
-	
 }
 
 #endif

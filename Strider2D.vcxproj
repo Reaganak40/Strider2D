@@ -692,6 +692,7 @@
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\window.cpp" />
     <ClCompile Include="tests\TestDrawQuad.cpp" />
+    <ClCompile Include="tests\TestQuadRotationTranslation.cpp" />
     <ClCompile Include="tests\TestQuadTexture.cpp" />
     <ClCompile Include="tests\Tests.cpp" />
   </ItemGroup>

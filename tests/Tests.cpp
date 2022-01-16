@@ -22,7 +22,9 @@ int main(void)
 	*					   with a colored sqaure below them.
 	*
 	* ***********************************************************/
-	TestQuadTexture();
+	//TestQuadTexture();
+
+	TestQuadRotationTranslation();
 
 	return 0;
 }

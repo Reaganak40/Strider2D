@@ -660,6 +660,7 @@
     <ClCompile Include="tests\Tests.cpp" />
     <ClCompile Include="tests\TestQuadTexture.cpp" />
     <ClCompile Include="dependencies\stb_image\stb_image\stb_image.cpp" />
+    <ClCompile Include="tests\TestQuadRotationTranslation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\TextureMap.txt" />

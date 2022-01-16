@@ -4,11 +4,21 @@ namespace Strider2D
 {
 	Quad::Quad(float width, float height, float x, float y)
 	{
+		m_rotation_rule = S2D_POINT_ROTATION; //rotate on vertex 0
+		m_current_rotation = 0.0f;
+
 		m_width = width;
 		m_height = height;
 
-		SetX(x);
-		SetY(y);
+		m_vertices[0].Position[0] = x;
+		m_vertices[1].Position[0] = x + width;
+		m_vertices[2].Position[0] = x + width;
+		m_vertices[3].Position[0] = x;
+		
+		m_vertices[0].Position[1] = y;
+		m_vertices[1].Position[1] = y + height;
+		m_vertices[2].Position[1] = y + height;
+		m_vertices[3].Position[1] = y;
 
 		SetColor(0.0f, 0.0f, 0.0f, 1.0f); // Pre-set all new quads to black
 
@@ -19,38 +29,49 @@ namespace Strider2D
 	void Quad::SetWidth(float width)
 	{
 		m_width = width;
+		
+		// this wizardry will reset the vertices with the height
+		Rotate(0);
 
-		// this wizardry will reset the vertices with the width
-		float x = GetX();
-		SetX(x);
 	}
 
 	void Quad::SetHeight(float height)
 	{
 		m_height = height;
-
+		
 		// this wizardry will reset the vertices with the height
-		float y = GetY();
-		SetX(y);
+		Rotate(0);
+
 	}
 	
 	// Set X position of Quad, starting at bottom left corner
 	void Quad::SetX(float x)
 	{
+		// we must calculate each individually due to rotations
+		float dx1 = m_vertices[1].Position[0] - m_vertices[0].Position[0];
+		float dx2 = m_vertices[2].Position[0] - m_vertices[0].Position[0];
+		float dx3 = m_vertices[3].Position[0] - m_vertices[0].Position[0];
+
+
 		m_vertices[0].Position[0] = x;
-		m_vertices[1].Position[0] = x + m_width;
-		m_vertices[2].Position[0] = x + m_width;
-		m_vertices[3].Position[0] = x;
+		m_vertices[1].Position[0] = x + dx1;
+		m_vertices[2].Position[0] = x + dx2;
+		m_vertices[3].Position[0] = x + dx3;
 
 	}
 
 	// Set Y position of Quad, starting at bottom left corner
 	void Quad::SetY(float y)
 	{
+		// we must calculate each individually due to rotations
+		float dy1 = m_vertices[1].Position[1] - m_vertices[0].Position[1];
+		float dy2 = m_vertices[2].Position[1] - m_vertices[0].Position[1];
+		float dy3 = m_vertices[3].Position[1] - m_vertices[0].Position[1];
+
 		m_vertices[0].Position[1] = y;
-		m_vertices[1].Position[1] = y;
-		m_vertices[2].Position[1] = y + m_height;
-		m_vertices[3].Position[1] = y + m_height;
+		m_vertices[1].Position[1] = y + dy1;
+		m_vertices[2].Position[1] = y + dy2;
+		m_vertices[3].Position[1] = y + dy3;
 	}
 
 	// Set RGBA values for quad
@@ -72,6 +93,39 @@ namespace Strider2D
 		
 		for (int i = 0; i < 4; i++)
 			m_vertices[i].TextureID = (float)id;
+	}
+
+	void Quad::SetRotationRule(int rotation_rule)
+	{
+		if ((rotation_rule == S2D_ORIGIN_ROTATION) || (rotation_rule == S2D_POINT_ROTATION))
+			m_rotation_rule = rotation_rule;
+		else
+			ASSERT(false);
+	}
+
+	void Quad::Rotate(float d_degrees)
+	{
+		if (m_rotation_rule == S2D_POINT_ROTATION)
+		{
+			float new_rotation = m_current_rotation + d_degrees;
+			new_rotation = fmod(new_rotation, 360); //keep rotation relative
+
+			double rad_rotation = new_rotation * (S2D_PI / 180);
+			double vec2_dr = 45 * (S2D_PI / 180);
+			double vec3_dr = 90 * (S2D_PI / 180);
+
+			m_vertices[1].Position[0] = m_vertices[0].Position[0] + (cos(rad_rotation) * m_width);
+			m_vertices[1].Position[1] = m_vertices[0].Position[1] + (sin(rad_rotation) * m_height);
+
+			float hyp = sqrt(pow(m_width, 2) + pow(m_height, 2));
+			m_vertices[2].Position[0] = m_vertices[0].Position[0] + (cos(rad_rotation + vec2_dr) * hyp);
+			m_vertices[2].Position[1] = m_vertices[0].Position[1] + (sin(rad_rotation + vec2_dr) * hyp);
+
+			m_vertices[3].Position[0] = m_vertices[0].Position[0] + (cos(rad_rotation + vec3_dr) * m_width);
+			m_vertices[3].Position[1] = m_vertices[0].Position[1] + (sin(rad_rotation + vec3_dr) * m_height);
+
+			m_current_rotation = new_rotation;
+		}
 	}
 
 	std::string Quad::c_str()

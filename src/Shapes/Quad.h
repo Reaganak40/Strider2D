@@ -5,6 +5,12 @@
 #include "../Renderer/Texture.h"
 
 #include <string>
+#include <math.h>
+
+#define S2D_PI 3.14159265
+#define S2D_POINT_ROTATION 0	//rotate on vertex 0
+#define S2D_ORIGIN_ROTATION 1   // rotate on the center point of shape
+
 
 namespace Strider2D
 {
@@ -14,6 +20,9 @@ namespace Strider2D
 		Vector m_vertices[4];
 		float m_width;
 		float m_height;
+
+		int m_rotation_rule;
+		float m_current_rotation;
 
 		void SetTextureCoordinates();
 
@@ -37,6 +46,11 @@ namespace Strider2D
 		
 		// Give the quad a texture with a texture file location (relative)
 		void SetTexture(std::string texture_loc);
+
+		// Determines the center point where the shape rotates
+		void SetRotationRule(int rotation_rule);
+
+		void Rotate(float d_degrees);
 
 		// Get length of bottom left vertex to bottom right vertex
 		inline float GetWidth()	 { return m_width;  }
