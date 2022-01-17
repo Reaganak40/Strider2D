@@ -7,7 +7,7 @@ int TestQuadRotationTranslation(void)
 
     Strider2D::Quad square(100, 25, 100, 200);
 
-    square.SetRotationRule(S2D_MIDPOINT_ROTATION);
+    //square.SetRotationRule(S2D_MIDPOINT_ROTATION);
     square.SetColor(0.9f, 0.0f, 0.5f, 1.0f);
 
     float dr = -1.0f;

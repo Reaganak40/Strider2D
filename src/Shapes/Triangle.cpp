@@ -16,6 +16,8 @@ namespace Strider2D
 
 		// Default is a right traingle
 		m_vertex_angle = 90;
+		m_vec2_hyp = sqrt(pow(m_width, 2) + pow(m_height, 2));
+		m_vec2_dr = atan(m_height / m_width);
 
 		// Position must be done manually because functions depend on initialized positions
 		m_vertices[0].Position[0] = x;
@@ -57,6 +59,17 @@ namespace Strider2D
 		m_vertices[2].Position[1] = m_vertices[0].Position[1] + m_height;
 
 		m_vertex_angle = degrees;
+
+		double vec2_dx = abs(m_vertices[2].Position[0] - m_vertices[0].Position[0]);
+
+		if(vec2_dx == 0) // to avoid divide by 0
+			m_vec2_dr = 90 * (float)(S2D_PI / 180);
+		else
+			m_vec2_dr  = (float)atan(m_height / vec2_dx);
+		
+		m_vec2_hyp = sqrt(pow(vec2_dx, 2) + pow(m_height, 2));
+
+
 	}
 
 	void Triangle::SetWidth(float width)
@@ -200,6 +213,30 @@ namespace Strider2D
 			m_rotation_rule = rotation_rule;
 		else
 			ASSERT(false);
+	}
+	void Triangle::Rotate(float d_degrees)
+	{
+		float new_rotation = m_current_rotation + d_degrees;
+		new_rotation = (float)fmod((double)new_rotation, 360); //keep rotation relative
+
+		if (new_rotation < 0)
+			new_rotation += 360;
+
+		double rad_rotation = new_rotation * (S2D_PI / 180);
+		m_current_rotation = new_rotation;
+
+		if (m_rotation_rule == S2D_VERTEX_ROTATION)
+		{
+
+			double vec2_dx = abs(m_vertices[2].Position[0] - m_vertices[0].Position[0]);
+
+			m_vertices[1].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation) * m_width);
+			m_vertices[1].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation) * m_width);
+
+			m_vertices[2].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation + m_vec2_dr) * m_vec2_hyp);
+			m_vertices[2].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation + m_vec2_dr) * m_vec2_hyp);
+
+		}
 	}
 	void Triangle::Translate(float dx, float dy)
 	{

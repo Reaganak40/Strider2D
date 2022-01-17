@@ -13,7 +13,7 @@ int main(void)
 	*					   red square in the bottom left corner.
 	* 
 	* ***********************************************************/
-	TestDrawQuad();
+	//TestDrawQuad();
 
 	/*************************************************************
 	*	Test Name : TestQuadTexture
@@ -23,7 +23,7 @@ int main(void)
 	*					   with a colored sqaure below them.
 	*
 	* ***********************************************************/
-	TestQuadTexture();
+	//TestQuadTexture();
 
 	/*************************************************************
 	*	Test Name : TestQuadRotationTranslation
@@ -33,7 +33,7 @@ int main(void)
 	*					   across screen
 	*
 	* ***********************************************************/
-	TestQuadRotationTranslation();
+	//TestQuadRotationTranslation();
 
 	/*************************************************************
 	*	Test Name : TestDrawTriangle
@@ -44,6 +44,8 @@ int main(void)
 	*				       expand each frame
 	*
 	* ***********************************************************/
-	TestDrawTriangle();
+	//TestDrawTriangle();
+
+	TestTriangleRotation();
 	return 0;
 }

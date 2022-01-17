@@ -717,6 +717,7 @@
     <ClCompile Include="tests\TestQuadTexture.cpp" />
     <ClCompile Include="tests\Tests.cpp" />
     <ClCompile Include="tests\TestDrawTriangle.cpp" />
+    <ClCompile Include="tests\TestTriangleRotation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\TextureMap.txt" />

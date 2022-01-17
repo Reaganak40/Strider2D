@@ -17,6 +17,9 @@ namespace Strider2D
 		float m_vertex_angle;
 		float m_current_rotation;
 
+		float m_vec2_dr;
+		float m_vec2_hyp;
+
 		bool m_flipped_x;
 		bool m_flipped_y;
 
