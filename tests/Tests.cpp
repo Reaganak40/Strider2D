@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Tests.h"
 
 int main(void)
@@ -24,6 +25,14 @@ int main(void)
 	* ***********************************************************/
 	//TestQuadTexture();
 
+	/*************************************************************
+	*	Test Name : TestQuadRotationTranslation
+	*	Description: Tests rotation and translation calls for quads
+	*
+	*   Expected Behavior: Spinning pink square should fly 
+	*					   across screen
+	*
+	* ***********************************************************/
 	TestQuadRotationTranslation();
 
 	return 0;

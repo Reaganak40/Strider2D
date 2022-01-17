@@ -4,8 +4,6 @@
 #include "Vector.h"
 #include "../Renderer/Texture.h"
 
-#include <string>
-#include <math.h>
 
 #define S2D_PI 3.14159265
 #define S2D_VERTEX_ROTATION 0	//rotate on vertex 0
@@ -61,6 +59,13 @@ namespace Strider2D
 
 		// Move the object from its current position by the specified difference
 		void Translate(float dx = 0, float dy = 0);
+
+		// Change the width of the quad by a number dw
+		void ScaleW(float dw);
+
+		// Change the height of the quad by a number dh
+		void ScaleH(float dw);
+
 
 		// Get length of bottom left vertex to bottom right vertex
 		inline float GetWidth()	 { return m_width;  }

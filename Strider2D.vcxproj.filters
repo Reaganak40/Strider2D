@@ -637,6 +637,7 @@
     <ClInclude Include="dependencies\glm\glm\vector_relational.hpp" />
     <ClInclude Include="tests\Tests.h" />
     <ClInclude Include="dependencies\stb_image\stb_image\stb_image.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\OpenGL-Core\src\debugGL.cpp">
@@ -661,6 +662,7 @@
     <ClCompile Include="tests\TestQuadTexture.cpp" />
     <ClCompile Include="dependencies\stb_image\stb_image\stb_image.cpp" />
     <ClCompile Include="tests\TestQuadRotationTranslation.cpp" />
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\TextureMap.txt" />

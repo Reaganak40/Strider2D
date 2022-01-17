@@ -5,7 +5,6 @@
 #include "vertexBuffer.h"
 #include "VertexBufferLayout.h"
 
-
 namespace Strider2D
 {
 	namespace Renderer

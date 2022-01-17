@@ -1,4 +1,6 @@
+#include "pch.h"
 #include "VertexArray.h"
+
 namespace Strider2D
 {
 	namespace Renderer

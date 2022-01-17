@@ -8,14 +8,12 @@
 //		Strider2D is a basic rendering API that draws 2D graphics in an OpenGL Context window.
 //  
 // ==================================================================================================
+#pragma once
 #ifndef S2D_H
 #define S2D_H 1
 
-#include <map>
-#include <string>
-
 // Project Specific Includes
-#include <core.h> // Base OpenGL Library
+#include "pch.h"
 
 #include "window.h"					// OpenGL window context class
 #include "Shapes/Quad.h"			// Class that allows user to draw quads to the screen

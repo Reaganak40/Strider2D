@@ -8,10 +8,6 @@
 #include "IndexBuffer.h"  // a dependency for OpenGL rendering
 #include "Shader.h"		  // a dependency for OpenGL rendering
 
-#include "glm/gtc/matrix_transform.hpp"
-
-
-#include <deque>
 #define S2D_PUSH_STATIC 0
 #define S2D_PUSH_DYNAMIC 1
 
@@ -44,12 +40,21 @@ namespace Strider2D
 		
 		class Renderer2D
 		{
-		public:
+		private:
+
+			int m_window_height;
+			int m_window_width;
+
 			// Calls OpenGL clear buffer bit
 			void clear();
 
 			// Takes the rendering utlities, combinining them to draw data to the screen
 			void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+		public:
+
+			Renderer2D(int window_width = 960, int window_height = 540);
+			// Runs a OpenGL draw call for a Quad object
+			void DrawQuad(Quad quad);
 		};
 
 	}

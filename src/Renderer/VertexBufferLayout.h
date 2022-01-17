@@ -1,8 +1,6 @@
 #ifndef S2D_VERTEX_BUFFER_LAYOUT_H
 #define S2D_VERTEX_BUFFER_LAYOUT_H 1
-
-#include <core.h>
-#include <vector>
+#include "pch.h"
 
 namespace Strider2D
 {

@@ -1,7 +1,6 @@
 #ifndef S2D_VERTEXBUFFER
 #define S2D_VERTEXBUFFER 1
 
-#include <core.h>
 namespace Strider2D
 {
 	namespace Renderer //VertexBuffer is a dependency for renderer

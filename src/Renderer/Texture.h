@@ -1,12 +1,6 @@
 #ifndef S2D_TEXTURE_H
 #define S2D_TEXTURE_H
 
-#include "core.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-#include "stb_image/stb_image.h"
-
 namespace Strider2D
 {
 

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Vector.h"
 
 // Copies the contents of a Vector src to the new Vector dst

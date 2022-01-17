@@ -1,3 +1,4 @@
+#include "../pch.h"
 #include "IndexBuffer.h"
 
 namespace Strider2D

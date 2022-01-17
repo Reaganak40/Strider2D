@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Quad.h"
 
 namespace Strider2D
@@ -35,45 +36,51 @@ namespace Strider2D
 		m_width = width;
 		
 		// this wizardry will reset the vertices with the height
-		if(m_rotation_rule = S2D_VERTEX_ROTATION)
+		if(m_rotation_rule == S2D_VERTEX_ROTATION)
 			Rotate(0);
 		else
 		{
-			int i = 0;
-			int g = 1;
 
-			REASSIGN_POSITIONS:
-			{
-				float dy = m_vertices[g].Position[1] - m_vertices[i].Position[1];
-				float dx = m_vertices[g].Position[0] - m_vertices[i].Position[0];
+			m_rotation_rule = S2D_VERTEX_ROTATION;
+			Rotate(0);
+			m_rotation_rule = S2D_MIDPOINT_ROTATION;
 
-				float hyp = (float)sqrt(pow(dx, 2) + pow(dy, 2));
-				float midpoint = hyp / 2;
-				float theta = atan(abs(dy) / abs(dx));
+			// TODO: GET THIS TO WORK
+			//int i = 0;
+			//int g = 1;
 
-				//std::cout << theta << std::endl;
+			//REASSIGN_POSITIONS:
+			//{
+			//	float dy = m_vertices[g].Position[1] - m_vertices[i].Position[1];
+			//	float dx = m_vertices[g].Position[0] - m_vertices[i].Position[0];
 
-				float midx = midpoint * cos(theta);
-				float midy = midpoint * sin(theta);
-			
-				float f = m_width / 2;
-				float xx = f * cos(theta);
-				float yy = f * sin(theta);
+			//	float hyp = (float)sqrt(pow(dx, 2) + pow(dy, 2));
+			//	float midpoint = hyp / 2;
+			//	float theta = atan(abs(dy) / abs(dx));
+
+			//	//std::cout << theta << std::endl;
+
+			//	float midx = midpoint * cos(theta);
+			//	float midy = midpoint * sin(theta);
+			//
+			//	float f = m_width / 2;
+			//	float xx = f * cos(theta);
+			//	float yy = f * sin(theta);
 
 
-				m_vertices[i].Position[0] = m_vertices[i].Position[0] + midx - xx;
-				m_vertices[i].Position[1] = m_vertices[i].Position[1] + midy - yy;
+			//	m_vertices[i].Position[0] = m_vertices[i].Position[0] + midx - xx;
+			//	m_vertices[i].Position[1] = m_vertices[i].Position[1] + midy - yy;
 
-				m_vertices[g].Position[0] = m_vertices[g].Position[0] - midx + xx;
-				m_vertices[g].Position[1] = m_vertices[g].Position[1] - midy + yy;
+			//	m_vertices[g].Position[0] = m_vertices[g].Position[0] - midx + xx;
+			//	m_vertices[g].Position[1] = m_vertices[g].Position[1] - midy + yy;
 
-				if (i == 0)
-				{
-					i = 3;
-					g = 2;
-					goto REASSIGN_POSITIONS;
-				}
-			}
+			//	if (i == 0)
+			//	{
+			//		i = 3;
+			//		g = 2;
+			//		goto REASSIGN_POSITIONS;
+			//	}
+			//}
 
 		}
 
@@ -87,45 +94,50 @@ namespace Strider2D
 		m_height = height;
 		
 		// this wizardry will reset the vertices with the height
-		if (m_rotation_rule = S2D_VERTEX_ROTATION)
+		if (m_rotation_rule == S2D_VERTEX_ROTATION)
 			Rotate(0);
 		else
 		{
-			int i = 0;
-			int g = 3;
 
-		REASSIGN_POSITIONS:
-			{
-				float dy = m_vertices[g].Position[1] - m_vertices[i].Position[1];
-				float dx = m_vertices[g].Position[0] - m_vertices[i].Position[0];
+			m_rotation_rule = S2D_VERTEX_ROTATION;
+			Rotate(0);
+			m_rotation_rule = S2D_MIDPOINT_ROTATION;
+		// TODO: GET THIS TO WORK
+		//	int i = 0;
+		//	int g = 3;
 
-				float hyp = (float)sqrt(pow(dx, 2) + pow(dy, 2));
-				float midpoint = hyp / 2;
-				float theta = atan(abs(dy) / abs(dx));
+		//REASSIGN_POSITIONS:
+		//	{
+		//		float dy = m_vertices[g].Position[1] - m_vertices[i].Position[1];
+		//		float dx = m_vertices[g].Position[0] - m_vertices[i].Position[0];
 
-				//std::cout << theta << std::endl;
+		//		float hyp = (float)sqrt(pow(dx, 2) + pow(dy, 2));
+		//		float midpoint = hyp / 2;
+		//		float theta = atan(abs(dy) / abs(dx));
 
-				float midx = midpoint * cos(theta);
-				float midy = midpoint * sin(theta);
+		//		//std::cout << theta << std::endl;
 
-				float f = m_height / 2;
-				float xx = f * cos(theta);
-				float yy = f * sin(theta);
+		//		float midx = midpoint * cos(theta);
+		//		float midy = midpoint * sin(theta);
+
+		//		float f = m_height / 2;
+		//		float xx = f * cos(theta);
+		//		float yy = f * sin(theta);
 
 
-				m_vertices[i].Position[0] = m_vertices[i].Position[0] + midx - xx;
-				m_vertices[i].Position[1] = m_vertices[i].Position[1] + midy - yy;
+		//		m_vertices[i].Position[0] = m_vertices[i].Position[0] + midx - xx;
+		//		m_vertices[i].Position[1] = m_vertices[i].Position[1] + midy - yy;
 
-				m_vertices[g].Position[0] = m_vertices[g].Position[0] - midx + xx;
-				m_vertices[g].Position[1] = m_vertices[g].Position[1] - midy + yy;
+		//		m_vertices[g].Position[0] = m_vertices[g].Position[0] - midx + xx;
+		//		m_vertices[g].Position[1] = m_vertices[g].Position[1] - midy + yy;
 
-				if (i == 0)
-				{
-					i = 1;
-					g = 2;
-					goto REASSIGN_POSITIONS;
-				}
-			}
+		//		if (i == 0)
+		//		{
+		//			i = 1;
+		//			g = 2;
+		//			goto REASSIGN_POSITIONS;
+		//		}
+		//	}
 
 		}
 
@@ -280,6 +292,16 @@ namespace Strider2D
 
 		if (dy)
 			SetY(GetY() + dy);
+	}
+
+	void Quad::ScaleW(float dw)
+	{
+		SetWidth(m_width + dw);
+	}
+
+	void Quad::ScaleH(float dw)
+	{
+		SetHeight(m_height + dw);
 	}
 
 	std::string Quad::c_str()

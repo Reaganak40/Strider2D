@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Tests.h"
 
 int TestQuadTexture(void)

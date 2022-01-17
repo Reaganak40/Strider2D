@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Texture.h"
 
 // Reset the TextureMap.txt file which stores TextureIDs globally 

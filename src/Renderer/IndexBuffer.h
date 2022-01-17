@@ -1,8 +1,6 @@
 #ifndef S2D_INDEX_BUFFER_H
 #define S2D_INDEX_BUFFER_H 1
 
-#include <core.h>
-
 namespace Strider2D
 {
 	namespace Renderer

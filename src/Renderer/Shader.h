@@ -1,19 +1,6 @@
 #ifndef S2D_SHADER_H
 #define S2D_SHADER_H 1
 
-#include <core.h>
-
-
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <string>
-#include <sstream>
-
-#include <unordered_map>
-#include "glm/glm.hpp"
-
-
 namespace Strider2D
 {
 	namespace Renderer
