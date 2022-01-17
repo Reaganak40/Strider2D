@@ -13,7 +13,7 @@ int main(void)
 	*					   red square in the bottom left corner.
 	* 
 	* ***********************************************************/
-	//TestDrawQuad();
+	TestDrawQuad();
 
 	/*************************************************************
 	*	Test Name : TestQuadTexture
@@ -23,7 +23,7 @@ int main(void)
 	*					   with a colored sqaure below them.
 	*
 	* ***********************************************************/
-	//TestQuadTexture();
+	TestQuadTexture();
 
 	/*************************************************************
 	*	Test Name : TestQuadRotationTranslation
@@ -35,5 +35,15 @@ int main(void)
 	* ***********************************************************/
 	TestQuadRotationTranslation();
 
+	/*************************************************************
+	*	Test Name : TestDrawTriangle
+	*	Description: Tests drawing a triangle and changing its 
+	*				 size, position, and color
+	*
+	*   Expected Behavior: An orange triangle should continue to 
+	*				       expand each frame
+	*
+	* ***********************************************************/
+	TestDrawTriangle();
 	return 0;
 }

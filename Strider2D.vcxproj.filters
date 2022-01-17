@@ -638,6 +638,7 @@
     <ClInclude Include="tests\Tests.h" />
     <ClInclude Include="dependencies\stb_image\stb_image\stb_image.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Shapes\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\OpenGL-Core\src\debugGL.cpp">
@@ -663,6 +664,8 @@
     <ClCompile Include="dependencies\stb_image\stb_image\stb_image.cpp" />
     <ClCompile Include="tests\TestQuadRotationTranslation.cpp" />
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\Shapes\Triangle.cpp" />
+    <ClCompile Include="tests\TestDrawTriangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\TextureMap.txt" />

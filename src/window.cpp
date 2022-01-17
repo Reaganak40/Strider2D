@@ -9,5 +9,9 @@ namespace Strider2D
 		m_renderer.DrawQuad(quad);
 
 	}
+	void Window::DrawTriangle(Triangle triangle)
+	{
+		m_renderer.DrawTriangle(triangle);
+	}
 }
 

@@ -23,6 +23,9 @@ namespace Strider2D
 
 		// Runs a OpenGL draw call for a Quad object
 		void DrawQuad(Quad quad);
+
+		// Runs a OpenGL draw call for a Triangle object
+		void DrawTriangle(Triangle triangle);
 	};
 }
 

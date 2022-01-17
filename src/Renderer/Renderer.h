@@ -2,6 +2,7 @@
 #define S2D_RENDERER 1
 
 #include "../Shapes/Quad.h"
+#include "../Shapes/Triangle.h"
 
 #include "VertexBuffer.h" // a dependency for OpenGL rendering
 #include "VertexArray.h"  // a dependency for OpenGL rendering
@@ -37,6 +38,12 @@ namespace Strider2D
 		{
 			return InitVectorBuffer(shape.GetVertices(), 4); // 4 is number of vertices
 		}
+
+		template<>
+		inline ShapeBuffer* ConvertShapeToBuffer<Triangle>(Triangle& shape)
+		{
+			return InitVectorBuffer(shape.GetVertices(), 3); // 4 is number of vertices
+		}
 		
 		class Renderer2D
 		{
@@ -53,8 +60,12 @@ namespace Strider2D
 		public:
 
 			Renderer2D(int window_width = 960, int window_height = 540);
+			
 			// Runs a OpenGL draw call for a Quad object
 			void DrawQuad(Quad quad);
+
+			// Runs a OpenGL draw call for a Triangle object
+			void DrawTriangle(Triangle triangle);
 		};
 
 	}

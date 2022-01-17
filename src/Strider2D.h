@@ -12,11 +12,13 @@
 #ifndef S2D_H
 #define S2D_H 1
 
+
 // Project Specific Includes
 #include "pch.h"
 
 #include "window.h"					// OpenGL window context class
 #include "Shapes/Quad.h"			// Class that allows user to draw quads to the screen
+#include "Shapes/Triangle.h"	    // Class that allows user to draw triangles to the screen
 #include "Renderer/Renderer.h"		// Takes shapes and converts to data that OpenGL can use to draw graphics
 
 namespace Strider2D
