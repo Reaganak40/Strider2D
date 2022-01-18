@@ -16,7 +16,7 @@ namespace Strider2D
 
 		// Default is a right traingle
 		m_vertex_angle = 90;
-		m_vec2_hyp = sqrt(pow(m_width, 2) + pow(m_height, 2));
+		m_vec2_hyp = (float)sqrt(pow(m_width, 2) + pow(m_height, 2));
 		m_vec2_dr = atan(m_height / m_width);
 
 		// Position must be done manually because functions depend on initialized positions
@@ -44,18 +44,20 @@ namespace Strider2D
 
 		double rad_rotation;
 
-		if(m_flipped_y && !m_flipped_x || (!m_flipped_y && m_flipped_x))
+		if (m_flipped_y && !m_flipped_x || (!m_flipped_y && m_flipped_x))
 			rad_rotation = (degrees) * (S2D_PI / 180);
 		else
 			rad_rotation = ((-1) * degrees) * (S2D_PI / 180);
-
-		float local_x = (float)cos(rad_rotation);
 
 		float dx = 0;
 		if(degrees != 90) //since tan(90) = undefined
 			dx = m_height / (float)tan(rad_rotation);
 
-		m_vertices[2].Position[0] = m_vertices[1].Position[0] + dx;
+		float old_rot = m_current_rotation;
+
+		SetRotation(0);
+
+		m_vertices[2].Position[0] = m_vertices[0].Position[0] + m_width + dx; // if rotation is 0
 		m_vertices[2].Position[1] = m_vertices[0].Position[1] + m_height;
 
 		m_vertex_angle = degrees;
@@ -65,10 +67,11 @@ namespace Strider2D
 		if(vec2_dx == 0) // to avoid divide by 0
 			m_vec2_dr = 90 * (float)(S2D_PI / 180);
 		else
-			m_vec2_dr  = (float)atan(m_height / vec2_dx);
+			m_vec2_dr = (float)atan(m_height / vec2_dx);
 		
-		m_vec2_hyp = sqrt(pow(vec2_dx, 2) + pow(m_height, 2));
+		m_vec2_hyp = (float)sqrt(pow(vec2_dx, 2) + pow(m_height, 2));
 
+		SetRotation(old_rot);
 
 	}
 
@@ -86,18 +89,22 @@ namespace Strider2D
 			if (m_width < 1 && m_width > -1)
 				m_width = 1;
 		}
+		float theta = m_current_rotation * (float)(S2D_PI / 180);
 
-		float vec2_diff = 0;
-		vec2_diff = m_vertices[1].Position[0] - m_vertices[0].Position[0];
-		vec2_diff = m_width - vec2_diff;
+		float vec1_dx = m_width * cos(theta);
+		float vec1_dy = m_width * sin(theta);
 
-		m_vertices[1].Position[0] += vec2_diff;
-		m_vertices[2].Position[0] += vec2_diff;
 
+		m_vertices[1].Position[0] = m_vertices[0].Position[0] + vec1_dx;
+		m_vertices[1].Position[1] = m_vertices[0].Position[1] + vec1_dy;
+
+		
+		
 	}
 
 	void Triangle::SetHeight(float height)
 	{
+
 		m_height = height;
 		
 		if (m_flipped_x)
@@ -112,7 +119,20 @@ namespace Strider2D
 				m_height = 1;
 		}
 
+		
 		m_vertices[2].Position[1] = GetY() + m_height;
+
+		// Recaculate the diff radian and hypotenuse of vec2
+		float dw = abs(m_width) - (m_height / tan(m_vertex_angle * (float)(S2D_PI / 180)));
+		if (dw == 0)
+			m_vec2_dr = (float)S2D_PI / 2; // 90 degrees
+		else
+			m_vec2_dr = abs(atan(m_height / dw));
+		
+		m_vec2_hyp = (float)sqrt(pow(dw, 2) + pow(m_height, 2));
+		Rotate(0);
+
+
 	}
 
 	void Triangle::MakeRight(void)
@@ -138,7 +158,6 @@ namespace Strider2D
 		float dx1 = m_vertices[1].Position[0] - m_vertices[0].Position[0];
 		float dx2 = m_vertices[2].Position[0] - m_vertices[0].Position[0];
 
-
 		m_vertices[0].Position[0] = x;
 		m_vertices[1].Position[0] = x + dx1;
 		m_vertices[2].Position[0] = x + dx2;
@@ -163,7 +182,7 @@ namespace Strider2D
 			m_flipped_y = true;
 
 		SetWidth(abs(m_width));
-		Translate(0,0);
+		SetVertexAngle(m_vertex_angle);
 	}
 
 	void Triangle::FlipAxisX(void)
@@ -174,7 +193,8 @@ namespace Strider2D
 			m_flipped_x = true;
 
 		SetHeight(abs(m_height));
-		Translate(0,0);
+		SetX(GetX());
+		SetY(GetY());
 	}
 
 	void Triangle::SetTextureCoordinates()
@@ -214,6 +234,12 @@ namespace Strider2D
 		else
 			ASSERT(false);
 	}
+	void Triangle::SetRotation(float rotation_degrees)
+	{
+		// Find the current difference and rotate to it
+		float d_degrees = 360 - m_current_rotation + rotation_degrees;
+		Rotate(d_degrees);
+	}
 	void Triangle::Rotate(float d_degrees)
 	{
 		float new_rotation = m_current_rotation + d_degrees;
@@ -222,21 +248,30 @@ namespace Strider2D
 		if (new_rotation < 0)
 			new_rotation += 360;
 
-		double rad_rotation = new_rotation * (S2D_PI / 180);
+		double rad_rotation = (d_degrees) * (S2D_PI / 180);
+
+
 		m_current_rotation = new_rotation;
+
 
 		if (m_rotation_rule == S2D_VERTEX_ROTATION)
 		{
 
 			double vec2_dx = abs(m_vertices[2].Position[0] - m_vertices[0].Position[0]);
 
+			int flip_factor = 1;
+			if (m_flipped_y)
+				flip_factor = -1;
+			
 			m_vertices[1].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation) * m_width);
 			m_vertices[1].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation) * m_width);
 
-			m_vertices[2].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation + m_vec2_dr) * m_vec2_hyp);
-			m_vertices[2].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation + m_vec2_dr) * m_vec2_hyp);
+
+			m_vertices[2].Position[0] = m_vertices[0].Position[0] + (float)(flip_factor * (cos((flip_factor * rad_rotation) + m_vec2_dr) * m_vec2_hyp));
+			m_vertices[2].Position[1] = m_vertices[0].Position[1] + (float)(sin((flip_factor * rad_rotation) + m_vec2_dr) * m_vec2_hyp);
 
 		}
+
 	}
 	void Triangle::Translate(float dx, float dy)
 	{
@@ -249,9 +284,11 @@ namespace Strider2D
 	void Triangle::ScaleW(float dw)
 	{
 		SetWidth(abs(m_width) + dw);
+		SetVertexAngle(m_vertex_angle);
 	}
 	void Triangle::ScaleH(float dw)
 	{
 		SetHeight(abs(m_height) + dw);
+		SetVertexAngle(m_vertex_angle);
 	}
 }
