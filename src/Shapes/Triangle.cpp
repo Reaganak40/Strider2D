@@ -248,20 +248,19 @@ namespace Strider2D
 		if (new_rotation < 0)
 			new_rotation += 360;
 
-		double rad_rotation = (d_degrees) * (S2D_PI / 180);
+		double rad_rotation = (new_rotation) * (S2D_PI / 180);
 
 
 		m_current_rotation = new_rotation;
 
-
 		if (m_rotation_rule == S2D_VERTEX_ROTATION)
 		{
 
-			double vec2_dx = abs(m_vertices[2].Position[0] - m_vertices[0].Position[0]);
 
 			int flip_factor = 1;
 			if (m_flipped_y)
 				flip_factor = -1;
+
 			
 			m_vertices[1].Position[0] = m_vertices[0].Position[0] + (float)(cos(rad_rotation) * m_width);
 			m_vertices[1].Position[1] = m_vertices[0].Position[1] + (float)(sin(rad_rotation) * m_width);
