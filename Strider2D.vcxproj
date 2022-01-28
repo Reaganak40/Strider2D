@@ -712,6 +712,7 @@
     <ClCompile Include="src\Strider2D.cpp" />
     <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\window.cpp" />
+    <ClCompile Include="tests\TestBatchRenderer.cpp" />
     <ClCompile Include="tests\TestDrawQuad.cpp" />
     <ClCompile Include="tests\TestQuadRotationTranslation.cpp" />
     <ClCompile Include="tests\TestQuadTexture.cpp" />

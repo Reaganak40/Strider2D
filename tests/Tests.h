@@ -5,3 +5,4 @@ int TestDrawTriangle(void);
 int TestQuadTexture(void);
 int TestQuadRotationTranslation(void);
 int TestTriangleRotation(void);
+int TestBatchRenderer(void);

@@ -11,7 +11,7 @@
 
 #define S2D_PUSH_STATIC 0
 #define S2D_PUSH_DYNAMIC 1
-
+#define S2D_BATCH_LIMIT 9 // This is how many batch rendering units are allowed for a single renderer object
 
 namespace Strider2D
 {
@@ -22,6 +22,64 @@ namespace Strider2D
 		{
 			float* b_attributes;
 			int b_num_attributes;
+
+		};
+
+		class Renderer2D
+		{
+		private:
+
+			struct DrawQueue // THIS IS A BATCH RENDERING UNIT
+			{
+				VertexBuffer* batch_vb;
+			};
+
+			int m_window_height;
+			int m_window_width;
+
+			DrawQueue m_queues[S2D_BATCH_LIMIT];
+
+			// Calls OpenGL clear buffer bit
+			void clear();
+
+			// Takes the rendering utlities, combinining them to draw data to the screen
+			void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+		public:
+
+			Renderer2D(int window_width = 960, int window_height = 540);
+			
+			// Runs a OpenGL draw call for a Quad object
+			void DrawQuad(Quad quad);
+
+			// Runs a OpenGL draw call for a Triangle object
+			void DrawTriangle(Triangle triangle);
+
+			// BATCH RENDERING IMPLEMENTATION ******************************
+			// *************************************************************
+
+			// Pushes a primitive shape object to a draw queue
+			template<typename T>
+			void Push(T& draw_element, int queue_index)
+			{
+				static_assert(false);
+			}
+
+			template<>
+			void Push<Quad>(Quad& draw_element, int queue_index)
+			{
+				if (queue_index >= S2D_BATCH_LIMIT)
+					ApplicationBreak("Renderer2D::Push<Quad>() Specified queue is out of range");
+
+				// Break down quad into its vector parts
+				// append those vectors to the specified draw queue
+			}
+
+			template<>
+			void Push<Triangle>(Triangle& draw_element, int queue_index)
+			{
+				if (queue_index >= S2D_BATCH_LIMIT)
+					ApplicationBreak("Renderer2D::Push<Quad>() Specified queue is out of range");
+			}
 
 		};
 
@@ -45,28 +103,6 @@ namespace Strider2D
 			return InitVectorBuffer(shape.GetVertices(), 3); // 4 is number of vertices
 		}
 		
-		class Renderer2D
-		{
-		private:
-
-			int m_window_height;
-			int m_window_width;
-
-			// Calls OpenGL clear buffer bit
-			void clear();
-
-			// Takes the rendering utlities, combinining them to draw data to the screen
-			void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
-		public:
-
-			Renderer2D(int window_width = 960, int window_height = 540);
-			
-			// Runs a OpenGL draw call for a Quad object
-			void DrawQuad(Quad quad);
-
-			// Runs a OpenGL draw call for a Triangle object
-			void DrawTriangle(Triangle triangle);
-		};
 
 	}
 	//class Renderer2D

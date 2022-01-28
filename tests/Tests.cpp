@@ -46,6 +46,8 @@ int main(void)
 	* ***********************************************************/
 	//TestDrawTriangle();
 
-	TestTriangleRotation();
+	//TestTriangleRotation();
+
+	TestBatchRenderer();
 	return 0;
 }

@@ -667,6 +667,7 @@
     <ClCompile Include="src\Shapes\Triangle.cpp" />
     <ClCompile Include="tests\TestDrawTriangle.cpp" />
     <ClCompile Include="tests\TestTriangleRotation.cpp" />
+    <ClCompile Include="tests\TestBatchRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\TextureMap.txt" />

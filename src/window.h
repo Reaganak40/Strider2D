@@ -26,6 +26,26 @@ namespace Strider2D
 
 		// Runs a OpenGL draw call for a Triangle object
 		void DrawTriangle(Triangle triangle);
+
+		template<typename T>
+		void PushToDrawQueue(T& draw_element, int queue_index = 0)
+		{
+			static_assert(false);
+		}
+
+		template<>
+		void PushToDrawQueue<Quad>(Quad& draw_element, int queue_index)
+		{
+			m_renderer.Push<Quad>(draw_element, queue_index);
+		}
+
+		template<>
+		void PushToDrawQueue<Triangle>(Triangle& draw_element, int queue_index)
+		{
+			m_renderer.Push<Triangle>(draw_element, queue_index);
+		}
+
+
 	};
 }
 
