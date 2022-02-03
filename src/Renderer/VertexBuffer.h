@@ -14,6 +14,9 @@ namespace Strider2D
 			VertexBuffer(const void* data, unsigned int size);
 			~VertexBuffer();
 
+			// Updates the buffer data with the given data
+			void Update(const void* data, unsigned int size);
+
 			// Assigns buffer to next draw call 
 			void Bind() const;
 

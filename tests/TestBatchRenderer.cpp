@@ -16,7 +16,6 @@ int TestBatchRenderer(void)
         /* GLClear Call */
         window.clearWindow();
 
-        
         window.DrawQuad(square);
 
         /* GL Swap Buffers */

@@ -31,6 +31,8 @@ namespace Strider2D
 
 			struct DrawQueue // THIS IS A BATCH RENDERING UNIT
 			{
+				float* buffer_data;
+				int buffer_count;
 				VertexBuffer* batch_vb;
 			};
 
@@ -41,6 +43,10 @@ namespace Strider2D
 
 			// Calls OpenGL clear buffer bit
 			void clear();
+
+			// Implements Push after shape specific logic is done
+			void _Push(Renderer::ShapeBuffer* sb, int queue_index);
+
 
 			// Takes the rendering utlities, combinining them to draw data to the screen
 			void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
@@ -71,7 +77,14 @@ namespace Strider2D
 					ApplicationBreak("Renderer2D::Push<Quad>() Specified queue is out of range");
 
 				// Break down quad into its vector parts
-				// append those vectors to the specified draw queue
+				// Do the rest in the _Push function (which doesn't need shape type)
+
+				// Convert shape into a stream of buffer data
+				Renderer::ShapeBuffer* sb;
+				sb = Renderer::ConvertShapeToBuffer<Quad>(draw_element);
+
+				// This function impmements the rest of the push code but can be used for any shape
+				_Push(sb, queue_index);
 			}
 
 			template<>
@@ -79,6 +92,17 @@ namespace Strider2D
 			{
 				if (queue_index >= S2D_BATCH_LIMIT)
 					ApplicationBreak("Renderer2D::Push<Quad>() Specified queue is out of range");
+
+				// Break down triangle into its vector parts
+				// Do the rest in the _Push function (which doesn't need shape type)
+
+				// Convert shape into a stream of buffer data
+				Renderer::ShapeBuffer* sb;
+				sb = Renderer::ConvertShapeToBuffer<Triangle>(draw_element);
+
+				// This function impmements the rest of the push code but can be used for any shape
+				_Push(sb, queue_index);
+
 			}
 
 		};

@@ -26,6 +26,49 @@ namespace Strider2D
 		{
 			GLCall(glClear(GL_COLOR_BUFFER_BIT));
 		}
+		void Renderer2D::_Push(Renderer::ShapeBuffer* sb, int queue_index)
+		{
+			// Batch Rendering Queue Logic:
+			// Step 1: Create a vertex buffer (contains all the vertex data for each shape)
+			// Step 2: Create an index buffer (contains all the point markers for each shape)
+
+
+			// Updates the vertex buffer (Step 1)
+
+			if (m_queues[queue_index].buffer_data == nullptr)
+			{	// If the queue is empty the shape element will be used to initialize the buffer data
+				m_queues[queue_index].buffer_data = sb->b_attributes;
+				m_queues[queue_index].buffer_count = sb->b_num_attributes;
+
+				m_queues[queue_index].batch_vb = new Renderer::VertexBuffer(sb->b_attributes, sb->b_num_attributes * sizeof(float));
+			}
+			else
+			{	// If the queue is not empty, this shape data needs to be appended to the end of the buffer data
+				float* temp = m_queues[queue_index].buffer_data;
+				int temp_count = m_queues[queue_index].buffer_count;
+
+				m_queues[queue_index].buffer_count += sb->b_num_attributes;
+				m_queues[queue_index].buffer_data = new float[m_queues[queue_index].buffer_count];
+
+				int i = 0;
+				for (; i < temp_count; i++)
+				{
+					m_queues[queue_index].buffer_data[i] = temp[i];
+				}
+
+				for (int c = 0; c < sb->b_num_attributes; c++)
+				{
+					m_queues[queue_index].buffer_data[i + c] = sb->b_attributes[c];
+				}
+
+				delete temp; // NOTE: If queue buffer data contains dynamic attributes, this break
+							 // TODO: Implement dynamic append
+
+				// Update vertex buffer
+				m_queues[queue_index].batch_vb->Update(m_queues[queue_index].buffer_data, m_queues[queue_index].buffer_count * sizeof(float));
+			}
+
+		}
 		void Renderer2D::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
 		{
 			shader.Bind();
@@ -38,6 +81,13 @@ namespace Strider2D
 		{
 			m_window_width = window_width;
 			m_window_height = window_height;
+
+			for (int i = 0; i < S2D_BATCH_LIMIT; i++)
+			{
+				m_queues[i].buffer_data = nullptr;
+				m_queues[i].buffer_count = 0;
+				m_queues[i].batch_vb = nullptr;
+			}
 			
 		}
 
